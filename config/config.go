@@ -4,15 +4,17 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+
 	"github.com/joho/godotenv"
 )
 
 var configurations Config
 
 type Config struct {
-	Version     string
-	ServiceName string
-	HttpPort    int
+	Version      string
+	ServiceName  string
+	HttpPort     int
+	JwtSecretKey string
 }
 
 func loadConfig() {
@@ -39,16 +41,23 @@ func loadConfig() {
 		os.Exit(1)
 	}
 
-	port , err := strconv.ParseInt(httpPort,10,64)
+	port, err := strconv.ParseInt(httpPort, 10, 64)
 
 	if err != nil {
 		fmt.Println("Couldn't convert into integer")
 	}
 
-	configurations = Config {
-		Version: version,
+	jwtSecretKey := os.Getenv("JWT_SECRET_KEY")
+	if jwtSecretKey == "" {
+		fmt.Println("JWT secret key requied!!")
+		os.Exit(1)
+	}
+
+	configurations = Config{
+		Version:     version,
 		ServiceName: serviceName,
-		HttpPort: int(port),
+		HttpPort:    int(port),
+		JwtSecretKey: jwtSecretKey,
 	}
 
 }

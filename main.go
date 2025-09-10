@@ -1,14 +1,15 @@
 package main
 
 import (
-	"ecommerce/util"
-	"fmt"
+	// "ecommerce/util"
+	// "fmt"
+	"ecommerce/cmd"
 )
 
-// "ecommerce/cmd"
+
 
 func main() {
-	// cmd.Serve()
+	cmd.Serve()
 
 
 	// s := "ta"
@@ -28,16 +29,16 @@ func main() {
 	// d := sha256.Sum256(lekha)
 	// fmt.Println(d)
 
-	jwt,err := util.CreateJwt("dog",util.Payload{
-		Sub: 10,
-		FirstName: "tarique",
-		LastName: "adil",
-		Email: "tarique@yahoo.com",
-		IsShopOwner: true,
-	})
+	// jwt,err := util.CreateJwt("dog",util.Payload{
+	// 	Sub: 10,
+	// 	FirstName: "tarique",
+	// 	LastName: "adil",
+	// 	Email: "tarique@yahoo.com",
+	// 	IsShopOwner: true,
+	// })
 
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(jwt)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+	// fmt.Println(jwt)
 }
