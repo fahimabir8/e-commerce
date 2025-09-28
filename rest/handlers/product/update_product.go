@@ -34,7 +34,11 @@ func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		util.SendError(w, http.StatusBadRequest, "Invalid Request Body")
 		return
 	}
-
+	product, _ := h.productRepo.Get(pId)
+	if product == nil {
+		util.SendError(w, 404, "Product Not Found")
+		return
+	}
 	_,err = h.productRepo.Update(repo.Product{
 		ID: pId,
 		Title: req.Title,
@@ -42,6 +46,10 @@ func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		Price: req.Price,
 		ImageURL: req.ImageURL,
 	})
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
 
 	util.SendData(w, http.StatusOK, "Successfully updated product")
 
